@@ -4,6 +4,38 @@ function onScroll (){
     showNavOnScroll();
     showBackToTopButtonOnScroll()
 
+    activateMenuAtCurrentSection (home)
+    activateMenuAtCurrentSection (services)
+    activateMenuAtCurrentSection (about)
+    activateMenuAtCurrentSection (contact)
+
+}
+
+function activateMenuAtCurrentSection (section){
+    const targetLine  = scrollY + innerHeight / 2
+
+
+
+    const sectionTop = home.offsetTop;
+    const sectionHeight = home.offsetHeight;
+    const sectionTopReachOrPassedTargetLine = targetLine >= sectionTop 
+
+
+
+    const sectionEndsAt = sectionTop + sectionHeight 
+    const sectionEndPassedTargetLine = sectionEndsAt <= targetLine
+
+
+    const sectionBoundaries =
+     sectionTopReachOrPassedTargetLine && !sectionEndPassedTargetLine
+
+    const sectionId = section.getAttribute('id')
+    const menuElement = document.querySelector(`.menu a[href*= ${sectionId}]`)
+
+    menuElement.classList.remove('active')
+    if (sectionBoundaries){
+        menuElement.classList.add('active')
+    }
 }
 
 function showNavOnScroll () {
